@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Título principal */
+.main-title-container {
+    margin: 20px 20px 10px auto; /* Márgenes ajustados */
+    text-align: right; /* Alineación a la derecha */
+}
+
+.main-title-container h2 {
+    font-size: 20px;
+    margin: 0;
+    color: #333;
+    font-weight: bold;
+}
+
+.gray-bar {
+    height: 4px;
+    background-color: #ccc;
+    width: fit-content; /* Ajusta el ancho al contenido del título */
+    margin-top: 5px;
+    margin-right: 0; /* Mantener alineación a la derecha */
+}
+
+/* Título secundario */
+.title-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.title-container .blue-bar {
+    height: 5px;
+    background-color: #007BFF;
+    width: 100%;
+}
+
+.title-container h1 {
+    margin: 10px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Tabla */
+.table-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    table-layout: fixed;
+}
+
+thead {
+    background-color: #007BFF;
+    color: white;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+/* Ancho de columnas */
+th:nth-child(1), td:nth-child(1) {
+    width: 5%;
+    text-align: center;
+    font-weight: bold;
+    background-color: #f4f4f4;
+}
+
+th:nth-child(2), td:nth-child(2) {
+    width: 15%;
+    text-align: left;
+}
+
+th:nth-child(3), td:nth-child(3) {
+    width: 80%;
+}
+
+ul {
+    margin: 0;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
