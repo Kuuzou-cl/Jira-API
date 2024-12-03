@@ -1,10 +1,9 @@
-# This code sample uses the 'requests' library:
-# http://docs.python-requests.org
 import requests
 from requests.auth import HTTPBasicAuth
 import json
-from bigtree import dataframe_to_tree_by_relation, preorder_iter, tree_to_nested_dict
 import pandas as pd
+from anytree import Node
+from anytree.exporter import DictExporter
 
 empresas = ['AN','ADA','ATA','ARA','AXA','AMA']
 auth = HTTPBasicAuth("carlo.bernucci@aguasnuevas.cl", "ATATT3xFfGF0QJMW2deqscfBig7PLfDPNjNk-aGVpF9FZgAHilK7wTQaCTHQldVXqTtBZqb25aA9u8WQHJJlTJ76AOMIa_o4X88YfAC5j9s2IJ27NWg4bYfcr3BijwDMEnmuP3CwuULAthmvsjGE70DTukWTZWzdxLpDl7jaHp4-vE5HtV2PJVQ=BD4752CB")
@@ -12,6 +11,8 @@ url = "https://proyectosan.atlassian.net/rest/api/3/search/jql"
 headers = {"Accept": "application/json"}
 
 jira_data = []
+
+nodes_data = []
 
 def main():
 
@@ -103,23 +104,47 @@ def main():
     data_structure = pd.DataFrame(data_raw,
       columns=["child", "parent", "title", "comment"],
     )
+    
 
     if not data_structure.empty:
-      root = dataframe_to_tree_by_relation(data_structure)
+      temp_nodes = []
+      temp_root_node = Node(name=empresa, title=empresa, comment="none")
+      for index, row in data_structure.iterrows():
+        temp_nodes.append(temp_root_node)
+        temp_node = Node(name=row['child'], upper=row['parent'], title=row['title'], comment=row['comment'])
+        temp_nodes.append(temp_node)
+
       #root.show()
-      nested_dict = tree_to_nested_dict(root, all_attrs=True)
       #print(nested_dict)
       #print(nested_dict["name"])
-      jira_data.append(nested_dict)
+      #jira_data.append(nested_dict)
+      nodes_data.append(temp_nodes)
     #for node in preorder_iter(root):
       #print(node)
       #print([node.name for node in preorder_iter(root)])
   
+  
+  for array in nodes_data:
+    for index, element in zip(range(len(array)),array):
+      if hasattr(element, 'upper'):
+        for upper_element in array:
+          if element.upper == upper_element.name:
+            element.parent = upper_element
+            break
+        #array.pop(index)
+
+  exporter = DictExporter()
+  for element in nodes_data:
+    jira_data.append(exporter.export(element[0]))
+
+  #print(jira_data)
+
   for x in jira_data:
     html_body = html_body + '<h5>'  + x["name"] + '</h5>'
     if "children" in x:
       html_body = html_body + get_list(x["children"])
-  
+
+  #print(nodes_data)
   print(html_body)
 
 
