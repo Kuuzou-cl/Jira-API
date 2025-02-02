@@ -4,6 +4,7 @@ body {
     padding: 0;
     background-color: #f4f4f9;
     color: #333;
+    width: 100%;
 }
 
 /* Título principal */
@@ -47,7 +48,7 @@ body {
 
 /* Tabla */
 .table-container {
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
     background: #ffffff;

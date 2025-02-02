@@ -4,6 +4,7 @@ import json
 import pandas as pd
 from anytree import Node
 from anytree.exporter import DictExporter
+from datetime import date
 
 empresas = ['AN','ADA','ATA','ARA','AXA','AMA']
 auth = HTTPBasicAuth("carlo.bernucci@aguasnuevas.cl", "ATATT3xFfGF0QJMW2deqscfBig7PLfDPNjNk-aGVpF9FZgAHilK7wTQaCTHQldVXqTtBZqb25aA9u8WQHJJlTJ76AOMIa_o4X88YfAC5j9s2IJ27NWg4bYfcr3BijwDMEnmuP3CwuULAthmvsjGE70DTukWTZWzdxLpDl7jaHp4-vE5HtV2PJVQ=BD4752CB")
@@ -15,6 +16,10 @@ jira_data = []
 nodes_data = []
 
 def main():
+
+  today = date.today()
+  print("Today date is: ", today)
+  print("Today date is: ", today.day - 4)
 
   html_body = ''
 
@@ -29,8 +34,8 @@ def main():
       +'AND type IN (Task, Subtask, Epic) '
       +'AND status IN ("In Progress", Done) '
       +'AND comment ~ "Informe:" '
-      #+'AND statuscategorychangeddate >= "2024-11-11" AND statuscategorychangeddate <= "2024-11-15" '
-      #+'AND ( statuscategorychangeddate >= "2024-11-11" AND statuscategorychangeddate <= "2024-11-15" OR comment ~ "Informe:")'
+      +'AND updated >= "' +  str(today.year) + '-' + str(today.month) + '-' + str(today.day-4) + '" '
+      +'AND updated <= "' +  str(today.year) + '-' + str(today.month) + '-' + str(today.day+1) + '" '
       +'ORDER BY duedate ASC',
       'maxResults': '50',
       'fields': 'id,key,assignee,comment, parent, summary',
@@ -97,7 +102,7 @@ def main():
 
             jira_issues += jira_parent
 
-        #print(data_temp)
+        print(data_temp)
 
         data_raw.append([data_temp['key'],data_temp['parent'],data_temp['title'],data_temp['comment']])
 
