@@ -7,7 +7,7 @@ from anytree.exporter import DictExporter
 from datetime import date
 
 empresas = ['AN','ADA','ATA','ARA','AXA','AMA']
-auth = HTTPBasicAuth("carlo.bernucci@aguasnuevas.cl", "ATATT3xFfGF0QJMW2deqscfBig7PLfDPNjNk-aGVpF9FZgAHilK7wTQaCTHQldVXqTtBZqb25aA9u8WQHJJlTJ76AOMIa_o4X88YfAC5j9s2IJ27NWg4bYfcr3BijwDMEnmuP3CwuULAthmvsjGE70DTukWTZWzdxLpDl7jaHp4-vE5HtV2PJVQ=BD4752CB")
+auth = HTTPBasicAuth("mail", "key")
 url = "https://proyectosan.atlassian.net/rest/api/3/search/jql"
 headers = {"Accept": "application/json"}
 
